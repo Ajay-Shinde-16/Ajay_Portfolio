@@ -24,8 +24,14 @@ public class MailService {
     @Value("${app.contact.recipient:Ajay.shinde1606@gmail.com}")
     private String recipient;
 
-    @Value("${spring.mail.username:}")
+    // The "From" must be an address you've VERIFIED as a sender in Brevo.
+    // Defaults to the SMTP username if not set separately.
+    @Value("${app.mail.from:${spring.mail.username:}}")
     private String from;
+
+    // SMTP login — used only to detect whether mail is configured.
+    @Value("${spring.mail.username:}")
+    private String smtpUser;
 
     public MailService(ObjectProvider<JavaMailSender> mailSenderProvider) {
         this.mailSenderProvider = mailSenderProvider;
@@ -33,7 +39,7 @@ public class MailService {
 
     public void notifyNewMessage(ContactMessage m) {
         JavaMailSender sender = mailSenderProvider.getIfAvailable();
-        if (sender == null || from == null || from.isBlank()) {
+        if (sender == null || smtpUser == null || smtpUser.isBlank() || from == null || from.isBlank()) {
             log.info("[contact] New message from {} <{}> (email disabled — set spring.mail.* to enable): {}",
                     m.getName(), m.getEmail(), m.getMessage());
             return;

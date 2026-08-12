@@ -24,7 +24,6 @@ export default function Footer() {
         </div>
         <div className="foot-bottom">
           <span>© 2026 {PROFILE.name}. All rights reserved.</span>
-          <span>Built with React &amp; Spring Boot ✦</span>
         </div>
       </div>
     </footer>

@@ -14,6 +14,7 @@ export default function About() {
             <span className="badge">Pune, IN</span>
           </div>
           <div className="about-body reveal">
+            <span className="status-badge"><span className="gdot" />Open to full-time roles · 2026</span>
             {ABOUT.map((p, i) => (
               <p key={i} dangerouslySetInnerHTML={{ __html: p }} />
             ))}

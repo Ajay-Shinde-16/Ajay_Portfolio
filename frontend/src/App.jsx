@@ -1,5 +1,6 @@
 import { useTheme } from "./hooks/useTheme";
 import { useReveal } from "./hooks/useReveal";
+import ScrollProgress from "./components/ScrollProgress";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import { Stats, Marquee } from "./components/Stats";
@@ -17,6 +18,7 @@ export default function App() {
 
   return (
     <div className={`pf${theme === "light" ? " light" : ""}`} id="top">
+      <ScrollProgress />
       <a className="skip-link" href="#main">Skip to content</a>
       <Nav theme={theme} onToggle={toggle} />
       <main id="main" tabIndex={-1}>

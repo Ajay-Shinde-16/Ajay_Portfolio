@@ -52,6 +52,9 @@ export default function Hero({ theme }) {
           <Icosahedron theme={theme} />
         </div>
       </div>
+      <a className="scroll-cue" href="#about" aria-label="Scroll to about section">
+        <span className="mouse" /><span>Explore</span>
+      </a>
     </section>
   );
 }

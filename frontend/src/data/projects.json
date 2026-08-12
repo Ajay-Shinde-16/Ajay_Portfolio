@@ -1,0 +1,117 @@
+[
+  {
+    "name": "SkillBridge",
+    "blurb": "Remote job portal with verified skill-tagging and a weighted match engine.",
+    "tech": [
+      "React.js",
+      "Spring Boot",
+      "MySQL",
+      "JWT",
+      "REST API"
+    ],
+    "tags": [
+      "Full-Stack",
+      "Java / Spring Boot"
+    ],
+    "metrics": [
+      "Weighted skill-match algorithm — +35% match accuracy over keyword baseline",
+      "JWT auth + RBAC across 3 roles, architected for 1,000+ concurrent users",
+      "Automated 6-stage hiring pipeline — −45% recruiter coordination effort",
+      "Real-time notifications with sub-second (<1s) delivery; 99.9% uptime on CI/CD"
+    ],
+    "architecture": {
+      "flow": [
+        "React SPA",
+        "Spring Boot REST API",
+        "MySQL"
+      ],
+      "services": [
+        "JWT Auth · RBAC x3 roles",
+        "Weighted Skill-Match Engine",
+        "Real-time Notifications (WebSocket)",
+        "CI/CD · Vercel + Render + Railway"
+      ]
+    },
+    "live": "https://cdac-skillbridge.vercel.app",
+    "code": "https://github.com/Ajay-Shinde-16",
+    "liveLabel": true,
+    "image": "/shots/skillbridge.jpg",
+    "shape": "torusknot"
+  },
+  {
+    "name": "EventSphere",
+    "blurb": "Smart event management & ticketing platform with QR entry and AI recommendations.",
+    "tech": [
+      "MERN Stack",
+      "JWT",
+      "Chart.js",
+      "REST API"
+    ],
+    "tags": [
+      "Full-Stack",
+      "MERN"
+    ],
+    "metrics": [
+      "25+ REST endpoints with JWT/bcrypt RBAC across 3 roles",
+      "QR ticketing (ECL-H) + tier-based seat map — zero duplicate tickets",
+      "Claude API integration for AI-powered event recommendations",
+      "Chart.js dashboard + Canvas certificate generator — −40% reporting effort"
+    ],
+    "architecture": {
+      "flow": [
+        "React (Vite)",
+        "Express / Node API",
+        "MongoDB"
+      ],
+      "services": [
+        "JWT + bcrypt · RBAC x3 roles",
+        "QR Ticketing (ECL-H)",
+        "Claude API · Recommendations",
+        "Chart.js Analytics + Canvas Certs"
+      ]
+    },
+    "live": "https://cdacb-eventsphere.vercel.app",
+    "code": "https://github.com/Ajay-Shinde-16",
+    "liveLabel": true,
+    "image": "/shots/eventsphere.jpg",
+    "shape": "sphere"
+  },
+  {
+    "name": "Developer Portfolio",
+    "blurb": "This very site — a full-stack portfolio with a Spring Boot API, a hand-built 3D hero, and light/dark theming.",
+    "tech": [
+      "React",
+      "Vite",
+      "Spring Boot",
+      "H2",
+      "REST API"
+    ],
+    "tags": [
+      "Full-Stack",
+      "Java / Spring Boot"
+    ],
+    "metrics": [
+      "Hand-built rotating 3D icosahedron hero in canvas — zero 3D libraries",
+      "Spring Boot API serves projects and stores contact messages (validated, rate-limited, honeypot-protected)",
+      "Light/dark theming with localStorage persistence, focus-trapped modals, full keyboard/ARIA support",
+      "Performance & SEO: preloaded fonts, JSON-LD, sitemap, social preview, PWA manifest"
+    ],
+    "architecture": {
+      "flow": [
+        "React (Vite)",
+        "Spring Boot REST API",
+        "H2 Database"
+      ],
+      "services": [
+        "Projects API · JSON-driven",
+        "Contact API · validation + honeypot",
+        "Email notify · JavaMailSender",
+        "Deploy · Vercel + Docker"
+      ]
+    },
+    "code": "https://github.com/Ajay-Shinde-16",
+    "image": "/shots/portfolio.jpg",
+    "liveLabel": false,
+    "shape": "icosahedron"
+  }
+]

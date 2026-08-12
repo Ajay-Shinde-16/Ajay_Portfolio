@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Ajay Shinde — Portfolio (React + Spring Boot)
 
 A full-stack developer portfolio.
@@ -126,3 +127,6 @@ Then add your deployed frontend URL to `app.cors.allowed-origins` (env or proper
 - [ ] Point both project **GitHub** buttons to the actual repos (currently your profile).
 - [ ] Replace the project cover art with real screenshots (give each project an `image`).
 - [ ] Read through the About text and make it your own voice.
+=======
+# Ajay_Portfolio
+>>>>>>> 26387ac5fecb66b746e55329b7472aa7b5511768

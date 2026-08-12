@@ -33,7 +33,7 @@
       ]
     },
     "live": "https://cdac-skillbridge.vercel.app",
-    "code": "https://github.com/Ajay-Shinde-16",
+    "code": "https://github.com/Ajay-Shinde-16/SkillBridge",
     "liveLabel": true,
     "image": "/shots/skillbridge.jpg",
     "shape": "torusknot"
@@ -71,7 +71,7 @@
       ]
     },
     "live": "https://cdacb-eventsphere.vercel.app",
-    "code": "https://github.com/Ajay-Shinde-16",
+    "code": "https://github.com/Ajay-Shinde-16/EventSphere",
     "liveLabel": true,
     "image": "/shots/eventsphere.jpg",
     "shape": "sphere"
@@ -109,9 +109,10 @@
         "Deploy · Vercel + Docker"
       ]
     },
-    "code": "https://github.com/Ajay-Shinde-16",
+    "code": "https://github.com/Ajay-Shinde-16/Ajay_Portfolio",
     "image": "/shots/portfolio.jpg",
-    "liveLabel": false,
-    "shape": "icosahedron"
+    "liveLabel": true,
+    "shape": "icosahedron",
+    "live": "https://ajayshinde-portfolio.vercel.app"
   }
 ]

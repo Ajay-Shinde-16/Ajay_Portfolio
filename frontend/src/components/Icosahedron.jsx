@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 
 // Hand-built rotating icosahedron wireframe — no libraries.
-// Auto-rotates, follows the pointer, and recolors with the theme.
+// Auto-rotates, follows the pointer, recolors with the theme, pauses when
+// off-screen, and renders a single static frame under reduced-motion.
 export default function Icosahedron({ theme }) {
   const canvasRef = useRef(null);
   const stageRef = useRef(null);
@@ -17,16 +18,15 @@ export default function Icosahedron({ theme }) {
     const node = (a) => (light ? `rgba(176,119,20,${a})` : `rgba(242,184,75,${a})`);
     const glowCol = light ? "rgba(176,119,20,.5)" : "rgba(242,184,75,.8)";
 
-    let W, H, DPR, raf;
+    let W, H, DPR, raf, running = false;
     function size() {
       DPR = Math.min(window.devicePixelRatio || 1, 2);
       const r = canvas.getBoundingClientRect();
       W = r.width; H = r.height;
       canvas.width = W * DPR; canvas.height = H * DPR;
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      if (reduce) draw();
     }
-    size();
-    window.addEventListener("resize", size);
 
     const t = (1 + Math.sqrt(5)) / 2;
     const V = [
@@ -54,9 +54,11 @@ export default function Icosahedron({ theme }) {
       tRY = ((tc.clientX - r.left) / r.width - 0.5) * 1.6;
       tRX = 0.4 + ((tc.clientY - r.top) / r.height - 0.5) * 1.3;
     };
-    stage.addEventListener("mousemove", onMove);
-    stage.addEventListener("mouseleave", onLeave);
-    stage.addEventListener("touchmove", onTouch, { passive: true });
+    if (!reduce) {
+      stage.addEventListener("mousemove", onMove);
+      stage.addEventListener("mouseleave", onLeave);
+      stage.addEventListener("touchmove", onTouch, { passive: true });
+    }
 
     const rot = (p, ax, ay) => {
       let [x, y, z] = p;
@@ -67,10 +69,8 @@ export default function Icosahedron({ theme }) {
       return [x, y, z];
     };
 
-    function frame() {
+    function draw() {
       ctx.clearRect(0, 0, W, H);
-      if (!reduce) ry += 0.004;
-      rx += (tRX - rx) * 0.06;
       const cx = W / 2, cy = H / 2, R = Math.min(W, H) * 0.34, FL = 2.6;
       const pts = V.map((v) => {
         const p = rot(v, rx, ry + tRY);
@@ -91,12 +91,32 @@ export default function Icosahedron({ theme }) {
         ctx.shadowColor = glowCol; ctx.shadowBlur = g * 10;
         ctx.fill(); ctx.shadowBlur = 0;
       });
+    }
+
+    function frame() {
+      ry += 0.004;
+      rx += (tRX - rx) * 0.06;
+      draw();
       raf = requestAnimationFrame(frame);
     }
-    frame();
+    function start() { if (running || reduce) return; running = true; frame(); }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+
+    size();
+    window.addEventListener("resize", size);
+
+    // Only animate while the hero is on screen (saves CPU/battery).
+    const io = new IntersectionObserver(
+      (es) => { es[0].isIntersecting ? start() : stop(); },
+      { threshold: 0.01 }
+    );
+    io.observe(stage);
+
+    if (reduce) draw(); else start();
 
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
+      io.disconnect();
       window.removeEventListener("resize", size);
       stage.removeEventListener("mousemove", onMove);
       stage.removeEventListener("mouseleave", onLeave);
@@ -109,7 +129,7 @@ export default function Icosahedron({ theme }) {
       <div className="stage-frame" />
       <span className="corner tl" /><span className="corner tr" />
       <span className="corner bl" /><span className="corner br" />
-      <canvas ref={canvasRef} />
+      <canvas ref={canvasRef} aria-hidden="true" />
       <span className="stage-tag">render: <b>icosahedron.wire</b> · move to rotate</span>
     </div>
   );

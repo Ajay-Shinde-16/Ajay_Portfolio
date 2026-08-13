@@ -425,40 +425,28 @@ a.c-val:hover{color:var(--gold)}
 .pf .foot-soc a::after{content:none}
 .pf .foot-soc a:hover{color:var(--gold);border-color:var(--gold);transform:translateY(-2px)}
 .pf footer{border-top:1px solid var(--line);margin-top:10px}
-/* ============================================================================
-   FOOTER — paste this whole block at the very END of frontend/src/index.css
-   It overrides the older footer rules (later rules win), so ONLY the footer
-   changes. Nothing else on the site is affected.
-   ============================================================================ */
 
+/* ============ footer rebuild (3-col, responsive, FAB clearance) ============ */
 .pf footer{border-top:1px solid var(--line);margin-top:40px;padding:0 0 96px}
-
 .pf .foot-grid{display:grid;grid-template-columns:1.7fr 1fr 1.3fr;gap:44px;padding:56px 0 36px;align-items:start}
-
 .pf .foot-brand{display:flex;flex-direction:column;gap:14px;max-width:40ch}
 .pf .foot-logo{display:inline-flex;align-items:center;gap:9px;font-family:var(--fm);font-weight:700;font-size:.98rem}
 .pf .foot-logo .dot{color:var(--gold)}
 .pf .foot-tag{color:var(--muted);font-size:.92rem;line-height:1.55}
-
 .pf .foot-soc{display:flex;gap:12px;margin-top:2px;flex-wrap:wrap}
 .pf .foot-soc a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:11px;color:var(--muted);border:1px solid var(--line);background:var(--panel-2);transition:transform .2s,color .2s,border-color .2s}
-.pf .foot-soc a::after{content:none}          /* kill any leftover ↗ arrow */
 .pf .foot-soc a:hover{color:var(--gold);border-color:var(--gold);transform:translateY(-2px)}
-
 .pf .foot-col{display:flex;flex-direction:column;gap:12px;min-width:0}
 .pf .foot-col .h{font-family:var(--fm);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
 .pf .foot-col a{font-family:var(--fm);font-size:.86rem;color:var(--muted);transition:color .2s;word-break:break-word}
 .pf .foot-col a:hover{color:var(--text)}
 .pf .foot-loc{font-family:var(--fm);font-size:.86rem;color:var(--muted);line-height:1.5}
-
 .pf .foot-bottom{border-top:1px solid var(--line);margin-top:8px;padding:22px 0 0;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-family:var(--fm);font-size:.74rem;color:var(--muted)}
 
-/* Tablet: 2 columns, brand spans full width on top */
 @media(max-width:860px){
   .pf .foot-grid{grid-template-columns:1fr 1fr;gap:32px 40px}
   .pf .foot-brand{grid-column:1 / -1;max-width:none}
 }
-/* Mobile: single centered column; extra bottom room so the floating Résumé button never overlaps */
 @media(max-width:560px){
   .pf footer{padding-bottom:104px}
   .pf .foot-grid{grid-template-columns:1fr;text-align:center;gap:30px;padding-top:44px}
@@ -466,4 +454,27 @@ a.c-val:hover{color:var(--gold)}
   .pf .foot-col{align-items:center}
   .pf .foot-soc{justify-content:center}
   .pf .foot-bottom{flex-direction:column;align-items:center;text-align:center;gap:10px}
+}
+
+/* ============ a11y + micro-interaction polish ============ */
+/* smooth theme transition (surfaces without their own transform transitions) */
+.pf{transition:background-color .3s ease,color .3s ease}
+.pf header,.pf footer,.pf .contact-form input,.pf .contact-form textarea{transition:background-color .3s ease,border-color .3s ease,color .3s ease}
+
+/* solid buttons: gentle lift + soft gold glow + press */
+.pf .btn-solid{transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+.pf .btn-solid:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(242,184,75,.28)}
+.pf .btn-solid:active{transform:translateY(0) scale(.98)}
+
+/* floating résumé button: soft press */
+.pf .resume-fab:active{transform:scale(.95)}
+
+/* nav links: gold underline on hover/active */
+.pf nav .nav-links a:not(.btn){position:relative}
+.pf nav .nav-links a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:2px;border-radius:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .18s ease}
+.pf nav .nav-links a:not(.btn):hover::after,.pf nav .nav-links a.active::after{transform:scaleX(1)}
+
+/* honour reduced-motion for the new transitions too */
+@media(prefers-reduced-motion:reduce){
+  .pf,.pf *{transition:none!important}
 }

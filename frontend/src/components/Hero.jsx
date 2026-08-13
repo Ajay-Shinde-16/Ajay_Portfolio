@@ -11,9 +11,9 @@ function TypedRole() {
     function tick() {
       const w = ROLES[r];
       setText(del ? w.slice(0, c--) : w.slice(0, c++));
-      let d = del ? 45 : 85;
-      if (!del && c > w.length) { del = true; d = 1400; }
-      else if (del && c < 0) { del = false; r = (r + 1) % ROLES.length; c = 0; d = 220; }
+      let d = del ? 40 : 80;
+      if (!del && c > w.length) { del = true; d = 1500; }            // hold full phrase
+      else if (del && c < 0) { del = false; r = (r + 1) % ROLES.length; c = 0; d = 420; } // breath before next
       timer = setTimeout(tick, d);
     }
     tick();

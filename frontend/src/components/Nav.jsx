@@ -14,6 +14,19 @@ export default function Nav({ theme, onToggle }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close the mobile menu on Escape and return focus to the toggle.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e) => {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+        document.querySelector(".menu-toggle")?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
   // Scroll-spy: highlight the nav link for the section currently in view.
   useEffect(() => {
     const ids = NAV.map((n) => n.href.slice(1));
@@ -33,7 +46,7 @@ export default function Nav({ theme, onToggle }) {
   return (
     <header className={scrolled ? "scrolled" : ""}>
       <div className="wrap">
-        <nav>
+        <nav aria-label="Primary">
           <a href="#top" className="logo"><Logo size={26} />{PROFILE.logo}<span className="dot">.</span>dev</a>
           <div className={`nav-links${menuOpen ? " open" : ""}`}>
             {NAV.map((n) => {

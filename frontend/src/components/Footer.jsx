@@ -19,12 +19,21 @@ export default function Footer() {
               <a href={PROFILE.resume} target="_blank" rel="noreferrer" aria-label="Résumé" title="Résumé"><IconResume /></a>
             </div>
           </div>
-          <nav className="foot-nav" aria-label="Footer navigation">
+
+          <nav className="foot-col" aria-label="Footer navigation">
             <span className="h">Navigate</span>
             {NAV.map((n) => <a key={n.href} href={n.href}>{n.label}</a>)}
             <a href="#contact">contact</a>
           </nav>
+
+          <div className="foot-col">
+            <span className="h">Get in touch</span>
+            <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
+            <a href={`tel:${PROFILE.phone.replace(/\s/g, "")}`}>{PROFILE.phone}</a>
+            <span className="foot-loc">{PROFILE.location}</span>
+          </div>
         </div>
+
         <div className="foot-bottom">
           <span>© 2026 {PROFILE.name}. All rights reserved.</span>
           <span>Built with React &amp; Spring Boot ✦</span>

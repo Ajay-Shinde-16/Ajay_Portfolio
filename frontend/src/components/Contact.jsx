@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { PROFILE } from "../data/content";
-import { sendContact } from "../lib/api";
+
+// ── Web3Forms ────────────────────────────────────────────────────────────────
+// 1. Go to https://web3forms.com  →  enter Ajay.shinde1606@gmail.com  →  they
+//    email you an Access Key.
+// 2. Paste it below (or set VITE_WEB3FORMS_KEY in Vercel and it'll be picked up).
+// Web3Forms sends from its own trusted domain and sets the visitor's address as
+// Reply-To, so the email reliably lands in your inbox and "Reply" goes to them.
+const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || "d949f255-d4ff-4752-96f8-8c53ac9299bb";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "", website: "" });
@@ -22,12 +29,32 @@ export default function Contact() {
 
   async function submit(e) {
     e.preventDefault();
+    // Honeypot: if the hidden field is filled, silently pretend success (it's a bot).
+    if (form.website) { setStatus("ok"); setForm({ name: "", email: "", message: "", website: "" }); return; }
+
     setStatus("sending");
     setError("");
     try {
-      await sendContact(form);
-      setStatus("ok");
-      setForm({ name: "", email: "", message: "", website: "" });
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          subject: `Portfolio contact — ${form.name}`,
+          from_name: "Portfolio Contact",
+          name: form.name,
+          email: form.email,     // becomes the Reply-To, so you reply to the visitor
+          message: form.message,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus("ok");
+        setForm({ name: "", email: "", message: "", website: "" });
+      } else {
+        setStatus("error");
+        setError(data.message || "Submission failed.");
+      }
     } catch (err) {
       setStatus("error");
       setError(err.message || "Something went wrong.");
@@ -53,7 +80,7 @@ export default function Contact() {
             {status === "sending" ? "Sending…" : "Send message"}
           </button>
           {status === "ok" && <p className="cf-note ok">Thanks — your message was sent. I'll be in touch soon.</p>}
-          {status === "error" && <p className="cf-note err">Couldn't reach the server ({error}). You can copy my email below.</p>}
+          {status === "error" && <p className="cf-note err">Couldn't send ({error}). You can copy my email below.</p>}
         </form>
 
         {/* Quick one-click copy for recruiters in a hurry */}

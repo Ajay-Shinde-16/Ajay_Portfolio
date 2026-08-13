@@ -1,5 +1,6 @@
 import { PROFILE, NAV } from "../data/content";
 import Logo from "./Logo";
+import { socialIcon, IconResume } from "./Icons";
 
 export default function Footer() {
   return (
@@ -8,12 +9,14 @@ export default function Footer() {
         <div className="foot-grid">
           <div className="foot-brand">
             <a href="#top" className="foot-logo"><Logo size={24} />{PROFILE.logo}<span className="dot">.</span>dev</a>
-            <p className="foot-tag">{PROFILE.tagline1} {PROFILE.tagline2} Based in {PROFILE.location}.</p>
+            <p className="foot-tag">{PROFILE.tagline1} {PROFILE.tagline2}</p>
             <div className="foot-soc">
-              {PROFILE.socials.map((s) => (
-                <a key={s.label} href={s.url} target="_blank" rel="noreferrer">{s.label}</a>
+              {PROFILE.socials.map((soc) => (
+                <a key={soc.label} href={soc.url} target="_blank" rel="noreferrer" aria-label={soc.label} title={soc.label}>
+                  {socialIcon(soc.label)}
+                </a>
               ))}
-              <a href={PROFILE.resume} target="_blank" rel="noreferrer">Résumé</a>
+              <a href={PROFILE.resume} target="_blank" rel="noreferrer" aria-label="Résumé" title="Résumé"><IconResume /></a>
             </div>
           </div>
           <nav className="foot-nav" aria-label="Footer navigation">
@@ -24,6 +27,7 @@ export default function Footer() {
         </div>
         <div className="foot-bottom">
           <span>© 2026 {PROFILE.name}. All rights reserved.</span>
+          <span>Built with React &amp; Spring Boot ✦</span>
         </div>
       </div>
     </footer>

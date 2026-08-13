@@ -1,39 +1,30 @@
 import { useState } from "react";
 import { PROFILE } from "../data/content";
+import { IconMail, IconPhone, IconPin, IconResume, IconCopy, IconCheck, socialIcon } from "./Icons";
 
-// ── Web3Forms ────────────────────────────────────────────────────────────────
-// 1. Go to https://web3forms.com  →  enter Ajay.shinde1606@gmail.com  →  they
-//    email you an Access Key.
-// 2. Paste it below (or set VITE_WEB3FORMS_KEY in Vercel and it'll be picked up).
-// Web3Forms sends from its own trusted domain and sets the visitor's address as
-// Reply-To, so the email reliably lands in your inbox and "Reply" goes to them.
-const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || "d949f255-d4ff-4752-96f8-8c53ac9299bb";
+// See Icons.jsx notes — paste your Web3Forms access key here (or set VITE_WEB3FORMS_KEY).
+const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || "PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "", website: "" });
   const [status, setStatus] = useState("idle"); // idle | sending | ok | error
   const [error, setError] = useState("");
-  const [toast, setToast] = useState("");
+  const [copied, setCopied] = useState(""); // "email" | "phone" | ""
 
   const update = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  async function copy(text, label) {
+  async function copy(text, which) {
     try {
       await navigator.clipboard.writeText(text);
-      setToast(`${label} copied to clipboard`);
-    } catch {
-      setToast(`Couldn't copy — ${text}`);
-    }
-    setTimeout(() => setToast(""), 2200);
+      setCopied(which);
+      setTimeout(() => setCopied(""), 1800);
+    } catch { /* clipboard unavailable */ }
   }
 
   async function submit(e) {
     e.preventDefault();
-    // Honeypot: if the hidden field is filled, silently pretend success (it's a bot).
     if (form.website) { setStatus("ok"); setForm({ name: "", email: "", message: "", website: "" }); return; }
-
-    setStatus("sending");
-    setError("");
+    setStatus("sending"); setError("");
     try {
       const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -42,22 +33,14 @@ export default function Contact() {
           access_key: ACCESS_KEY,
           subject: `Portfolio contact — ${form.name}`,
           from_name: "Portfolio Contact",
-          name: form.name,
-          email: form.email,     // becomes the Reply-To, so you reply to the visitor
-          message: form.message,
+          name: form.name, email: form.email, message: form.message,
         }),
       });
       const data = await res.json();
-      if (data.success) {
-        setStatus("ok");
-        setForm({ name: "", email: "", message: "", website: "" });
-      } else {
-        setStatus("error");
-        setError(data.message || "Submission failed.");
-      }
+      if (data.success) { setStatus("ok"); setForm({ name: "", email: "", message: "", website: "" }); }
+      else { setStatus("error"); setError(data.message || "Submission failed."); }
     } catch (err) {
-      setStatus("error");
-      setError(err.message || "Something went wrong.");
+      setStatus("error"); setError(err.message || "Something went wrong.");
     }
   }
 
@@ -66,6 +49,9 @@ export default function Contact() {
       <div className="wrap">
         <p className="mono reveal">// let's build something</p>
         <h2 className="reveal">Have a role in mind?<br /><span className="grad">Let's talk.</span></h2>
+        <p className="contact-lede reveal">
+          Drop a message below, or reach me directly — I usually reply within a day.
+        </p>
 
         <form className="contact-form reveal" onSubmit={submit}>
           <div className="cf-row">
@@ -73,7 +59,6 @@ export default function Contact() {
             <input type="email" placeholder="Your email" required value={form.email} onChange={update("email")} aria-label="Your email" />
           </div>
           <textarea rows="4" placeholder="Your message" required value={form.message} onChange={update("message")} aria-label="Your message" />
-          {/* Honeypot: hidden from humans, catches bots. Do not remove. */}
           <input type="text" name="website" tabIndex="-1" autoComplete="off" className="hp-field" aria-hidden="true"
                  value={form.website} onChange={update("website")} />
           <button className="btn btn-solid" type="submit" disabled={status === "sending"}>
@@ -83,40 +68,44 @@ export default function Contact() {
           {status === "error" && <p className="cf-note err">Couldn't send ({error}). You can copy my email below.</p>}
         </form>
 
-        {/* Quick one-click copy for recruiters in a hurry */}
-        <div className="contact-quick reveal">
-          <div className="cq-item">
-            <a href={`mailto:${PROFILE.email}`} className="mail">{PROFILE.email}</a>
-            <button className="copy-btn" onClick={() => copy(PROFILE.email, "Email")} aria-label="Copy email address">
-              <CopyIcon /> Copy
+        {/* Three info cards */}
+        <div className="contact-cards reveal">
+          <div className="c-card">
+            <span className="c-ico"><IconMail /></span>
+            <span className="c-label">Email</span>
+            <a className="c-val" href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
+            <button className={`copy-pill${copied === "email" ? " done" : ""}`} onClick={() => copy(PROFILE.email, "email")} aria-label="Copy email address">
+              {copied === "email" ? <><IconCheck /> Copied!</> : <><IconCopy /> Copy</>}
             </button>
           </div>
-          <div className="cq-item">
-            <a href={`tel:${PROFILE.phone.replace(/\s/g, "")}`} className="mail">{PROFILE.phone}</a>
-            <button className="copy-btn" onClick={() => copy(PROFILE.phone, "Phone")} aria-label="Copy phone number">
-              <CopyIcon /> Copy
+          <div className="c-card">
+            <span className="c-ico"><IconPhone /></span>
+            <span className="c-label">Phone</span>
+            <a className="c-val" href={`tel:${PROFILE.phone.replace(/\s/g, "")}`}>{PROFILE.phone}</a>
+            <button className={`copy-pill${copied === "phone" ? " done" : ""}`} onClick={() => copy(PROFILE.phone, "phone")} aria-label="Copy phone number">
+              {copied === "phone" ? <><IconCheck /> Copied!</> : <><IconCopy /> Copy</>}
             </button>
+          </div>
+          <div className="c-card">
+            <span className="c-ico"><IconPin /></span>
+            <span className="c-label">Location</span>
+            <span className="c-val">{PROFILE.location}</span>
+            <span className="c-sub">Open to remote &amp; on-site</span>
           </div>
         </div>
 
-        <p className="phone reveal">{PROFILE.location}</p>
-        <div className="contact-socials reveal">
-          {PROFILE.socials.map((s) => (
-            <a key={s.label} href={s.url} target="_blank" rel="noreferrer">{s.label} ↗</a>
+        {/* Social links with icons */}
+        <div className="socials-row reveal">
+          {PROFILE.socials.map((soc) => (
+            <a key={soc.label} className="soc-btn" href={soc.url} target="_blank" rel="noreferrer">
+              {socialIcon(soc.label)}<span>{soc.label}</span>
+            </a>
           ))}
-          <a href={PROFILE.resume} target="_blank" rel="noreferrer">Résumé ↗</a>
+          <a className="soc-btn accent" href={PROFILE.resume} target="_blank" rel="noreferrer">
+            <IconResume /><span>Résumé</span>
+          </a>
         </div>
       </div>
-
-      <div className={`toast${toast ? " show" : ""}`} role="status" aria-live="polite">{toast}</div>
     </section>
-  );
-}
-
-function CopyIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-    </svg>
   );
 }

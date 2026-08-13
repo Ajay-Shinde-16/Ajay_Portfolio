@@ -391,3 +391,37 @@ body{background:#0D0B14}
 .pf .project{transition:transform .3s,border-color .3s,box-shadow .3s}
 .pf .project:hover{transform:translateY(-4px)}
 @media(max-width:720px){.pf .project:hover{transform:none}}
+
+/* ============ contact + footer redesign ============ */
+.pf .contact-lede{color:var(--muted);font-size:1.02rem;max-width:46ch;margin:0 auto 40px;text-align:center}
+
+/* three info cards */
+.pf .contact-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:820px;margin:48px auto 0}
+.pf .c-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:6px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 24px;transition:transform .25s,border-color .25s,box-shadow .25s}
+.pf .c-card:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:var(--shadow-hi)}
+.pf .c-ico{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:11px;color:var(--gold);background:linear-gradient(145deg,rgba(242,184,75,.16),rgba(124,140,255,.12));border:1px solid var(--line);margin-bottom:8px}
+.pf .c-label{font-family:var(--fm);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pf .c-val{font-family:var(--fm);font-size:.92rem;color:var(--text);word-break:break-word;line-height:1.4}
+a.c-val:hover{color:var(--gold)}
+.pf .c-sub{font-family:var(--fm);font-size:.72rem;color:var(--muted);margin-top:2px}
+.pf .copy-pill{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-family:var(--fm);font-size:.74rem;font-weight:600;color:var(--muted);background:var(--panel-2);border:1px solid var(--line);border-radius:20px;padding:7px 14px;cursor:pointer;transition:.2s}
+.pf .copy-pill:hover{color:var(--gold);border-color:var(--gold)}
+.pf .copy-pill.done{color:#0d0b14;background:var(--gold);border-color:var(--gold)}
+
+/* social row */
+.pf .socials-row{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:40px}
+.pf .soc-btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--fm);font-size:.82rem;color:var(--muted);background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 18px;transition:transform .2s,color .2s,border-color .2s,box-shadow .2s}
+.pf .soc-btn:hover{color:var(--text);border-color:var(--gold);transform:translateY(-2px);box-shadow:var(--shadow)}
+.pf .soc-btn.accent{color:var(--btn-text);background:var(--gold);border-color:var(--gold);font-weight:700}
+.pf .soc-btn.accent:hover{color:var(--btn-text);filter:brightness(1.05)}
+
+@media(max-width:720px){
+  .pf .contact-cards{grid-template-columns:1fr;gap:14px}
+  .pf .socials-row{gap:10px}
+}
+
+/* footer social icons */
+.pf .foot-soc a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;color:var(--muted);border:1px solid var(--line);background:var(--panel-2);transition:.2s}
+.pf .foot-soc a::after{content:none}
+.pf .foot-soc a:hover{color:var(--gold);border-color:var(--gold);transform:translateY(-2px)}
+.pf footer{border-top:1px solid var(--line);margin-top:10px}

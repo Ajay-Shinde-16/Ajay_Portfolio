@@ -131,16 +131,15 @@ export default function Projects({ theme }) {
           </div>
         )}
 
-        {/* API status: honest about the free-tier backend waking up */}
-        {status === "loading" && projects.length > 0 && (
-          <div className="proj-status"><span className="dotp" /> Waking up the backend… (free tier, ~30s)</div>
-        )}
+        {/* Projects always render from the bundled copy, so an API hiccup is
+            invisible to visitors. Only surface anything if we genuinely have
+            nothing to show. */}
         {status === "ok" && (
-          <div className="proj-status" style={{ opacity: 0.6 }}>↳ served live from Spring Boot API</div>
+          <div className="proj-status" style={{ opacity: 0.55 }}>↳ served live from Spring Boot API</div>
         )}
-        {status === "error" && (
+        {status === "error" && projects.length === 0 && (
           <div className="proj-status">
-            Couldn't reach the API (it may be waking up) — showing saved copy.
+            Couldn't reach the API (it may be waking up).
             <button className="retry-btn" onClick={load}>Retry</button>
           </div>
         )}

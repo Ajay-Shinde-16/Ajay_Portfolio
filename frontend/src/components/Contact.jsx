@@ -3,7 +3,7 @@ import { PROFILE } from "../data/content";
 import { IconMail, IconPhone, IconPin, IconResume, IconCopy, IconCheck, socialIcon } from "./Icons";
 
 // See Icons.jsx notes — paste your Web3Forms access key here (or set VITE_WEB3FORMS_KEY).
-const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || "PASTE-YOUR-WEB3FORMS-ACCESS-KEY-HERE";
+const ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_KEY || "d949f255-d4ff-4752-96f8-8c53ac9299bb";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "", website: "" });

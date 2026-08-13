@@ -193,7 +193,7 @@ body{background:#0D0B14}
   .pf .skills-grid{grid-template-columns:1fr}
   .pf .certs{grid-template-columns:1fr}
   .pf .nav-links{display:none}
-  .pf .nav-links.open{display:flex;position:absolute;top:72px;left:0;right:0;flex-direction:column;background:var(--panel);border-bottom:1px solid var(--line);padding:24px 28px;gap:20px}
+  .pf .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--panel);border-bottom:1px solid var(--line);padding:24px 28px;gap:20px}
   .pf .menu-toggle{display:flex}
 }
 @media(max-width:520px){
@@ -477,4 +477,29 @@ a.c-val:hover{color:var(--gold)}
 /* honour reduced-motion for the new transitions too */
 @media(prefers-reduced-motion:reduce){
   .pf,.pf *{transition:none!important}
+}
+
+/* ============ responsive refinements (small screens / edge cases) ============ */
+/* phones: full-width stacked CTAs + tighter modal */
+@media(max-width:520px){
+  .pf .hero-cta{flex-direction:column;align-items:stretch}
+  .pf .hero-cta .btn{width:100%;justify-content:center;text-align:center}
+  .pf .modal-panel{padding:26px 20px}
+  .pf .modal-close{top:12px;right:12px}
+  .pf .pm-head h3{font-size:1.4rem}
+  .pf .socials-row .soc-btn{flex:1 1 auto;justify-content:center}
+}
+/* small phones (≤400px): tighten gutters, let tight content wrap */
+@media(max-width:400px){
+  .pf .wrap{padding:0 16px}
+  .pf section{padding:64px 0}
+  .pf .c-card{padding:22px 20px}
+  .pf .arch-node{white-space:normal}
+  .pf .arch-flow{gap:6px}
+  .pf .stage{max-width:240px}
+  .pf .stats .n{font-size:1.9rem}
+}
+/* large tablets (860–1024): keep contact cards comfortable */
+@media(min-width:721px) and (max-width:1024px){
+  .pf .contact-cards{max-width:100%}
 }

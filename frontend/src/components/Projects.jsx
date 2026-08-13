@@ -121,6 +121,7 @@ export default function Projects({ theme }) {
                       </div>
                     </div>
                     <p className="p-blurb">{p.blurb}</p>
+                    {p.impact && <p className="p-impact">{p.impact}</p>}
                     {p.tags && <div className="p-tags">{p.tags.map((t) => <span key={t}>{t}</span>)}</div>}
                     <span className="p-more">View architecture &amp; highlights →</span>
                   </div>
@@ -132,7 +133,7 @@ export default function Projects({ theme }) {
 
         {/* API status: honest about the free-tier backend waking up */}
         {status === "loading" && projects.length > 0 && (
-          <div className="proj-status"><span className="dotp" /> syncing with live API…</div>
+          <div className="proj-status"><span className="dotp" /> Waking up the backend… (free tier, ~30s)</div>
         )}
         {status === "ok" && (
           <div className="proj-status" style={{ opacity: 0.6 }}>↳ served live from Spring Boot API</div>

@@ -384,3 +384,10 @@ body{background:#0D0B14}
 /* timeline icons */
 .pf .tl-item .node{display:flex;align-items:center;justify-content:center}
 .pf .tl-item .node svg{width:9px;height:9px;color:var(--gold)}
+
+/* project impact line + card hover lift */
+.pf .p-impact{display:flex;gap:9px;align-items:baseline;color:var(--text);font-family:var(--fm);font-size:.86rem;font-weight:500;line-height:1.45;margin-bottom:16px}
+.pf .p-impact::before{content:"▸";color:var(--gold);font-size:.8rem;flex:0 0 auto}
+.pf .project{transition:transform .3s,border-color .3s,box-shadow .3s}
+.pf .project:hover{transform:translateY(-4px)}
+@media(max-width:720px){.pf .project:hover{transform:none}}

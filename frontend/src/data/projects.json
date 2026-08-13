@@ -36,7 +36,8 @@
     "code": "https://github.com/Ajay-Shinde-16/SkillBridge",
     "liveLabel": true,
     "image": "/shots/skillbridge.jpg",
-    "shape": "torusknot"
+    "shape": "torusknot",
+    "impact": "+35% match accuracy vs keyword search via a weighted skill-match engine."
   },
   {
     "name": "EventSphere",
@@ -74,7 +75,8 @@
     "code": "https://github.com/Ajay-Shinde-16/EventSphere",
     "liveLabel": true,
     "image": "/shots/eventsphere.jpg",
-    "shape": "sphere"
+    "shape": "sphere",
+    "impact": "25+ secured REST endpoints powering QR ticketing + AI event recommendations."
   },
   {
     "name": "Developer Portfolio",
@@ -113,6 +115,7 @@
     "image": "/shots/portfolio.jpg",
     "liveLabel": true,
     "shape": "icosahedron",
-    "live": "https://ajayshinde-portfolio.vercel.app"
+    "live": "https://ajayshinde-portfolio.vercel.app",
+    "impact": "React + Spring Boot, hand-coded 3D hero, zero UI libraries."
   }
 ]

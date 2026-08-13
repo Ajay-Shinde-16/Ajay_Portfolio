@@ -19,6 +19,7 @@ public class Project {
     private String code;
     private String image;
     private String shape;
+    private String impact;
     private boolean liveLabel;
 
     public Project() {}
@@ -43,6 +44,8 @@ public class Project {
     public void setImage(String image) { this.image = image; }
     public String getShape() { return shape; }
     public void setShape(String shape) { this.shape = shape; }
+    public String getImpact() { return impact; }
+    public void setImpact(String impact) { this.impact = impact; }
     public boolean isLiveLabel() { return liveLabel; }
     public void setLiveLabel(boolean liveLabel) { this.liveLabel = liveLabel; }
 }

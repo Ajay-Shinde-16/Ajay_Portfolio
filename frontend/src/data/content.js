@@ -73,7 +73,7 @@ export const TIMELINE = [
     when: "Feb 2026 – Jul 2026",
     title: "PGCP in Advanced Computing (PG-DAC)",
     org: "CDAC, Bangalore",
-    desc: "Post-Graduate Certificate in Advanced Computing — 75%, First Class with Distinction.",
+    desc: "Post-Graduate Certificate in Advanced Computing — 80.75%, First Class with Distinction.",
   },
   {
     type: "Work",

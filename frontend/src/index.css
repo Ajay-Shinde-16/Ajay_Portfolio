@@ -503,3 +503,13 @@ a.c-val:hover{color:var(--gold)}
 @media(min-width:721px) and (max-width:1024px){
   .pf .contact-cards{max-width:100%}
 }
+
+/* ============ footer: guaranteed clean stacking on phones (no overlap) ============ */
+@media(max-width:640px){
+  .pf .foot-grid{display:flex;flex-direction:column;gap:34px;text-align:center;padding:44px 0 32px}
+  .pf .foot-brand,.pf .foot-col{align-items:center;max-width:none;width:100%}
+  .pf .foot-soc{justify-content:center}
+  .pf .foot-col{gap:12px}
+  .pf .foot-col .h{margin-bottom:6px}
+  .pf .foot-bottom{flex-direction:column;gap:10px;text-align:center;padding-top:20px}
+}

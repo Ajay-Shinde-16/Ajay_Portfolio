@@ -25,13 +25,6 @@ export default function Footer() {
             {NAV.map((n) => <a key={n.href} href={n.href}>{n.label}</a>)}
             <a href="#contact">contact</a>
           </nav>
-
-          <div className="foot-col">
-            <span className="h">Get in touch</span>
-            <a href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a>
-            <a href={`tel:${PROFILE.phone.replace(/\s/g, "")}`}>{PROFILE.phone}</a>
-            <span className="foot-loc">{PROFILE.location}</span>
-          </div>
         </div>
 
         <div className="foot-bottom">
